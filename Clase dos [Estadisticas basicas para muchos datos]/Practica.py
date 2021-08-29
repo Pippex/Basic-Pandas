@@ -29,3 +29,12 @@ for d in BChart["Low"]:
 print("\n")
 print(BChart.describe(include=[np.number]))
 print("\n")
+print(list(BChart))
+BChart = BChart.set_index('Date')
+close_price = BChart["Close"]
+print(close_price)
+print(BChart)
+print("\n")
+print(BChart["Close"].astype(float))
+print("\n")
+print(BChart.head())
