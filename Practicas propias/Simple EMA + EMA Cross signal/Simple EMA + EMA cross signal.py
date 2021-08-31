@@ -52,12 +52,12 @@ def main():
         if AMZN["MACD"][d] ** (1/150) >= 1.05:
             AMZN["MACDSIGNAL"] = AMZN["Close"]/10
 
-    plt.plot(AMZN["Close"], label = "AMZN")
-    plt.plot(AMZN["EMA20"], label = "EMA 20")
-    plt.plot(AMZN["EMA30"], label = "EMA 30")
-    plt.plot(AMZN["EMASIGNAL"], label = "EMA SIGNAL")
-    plt.plot(AMZN["MACD"], label = "MACD")
-    plt.plot(AMZN["MACDSIGNAL"], label = "MACD SIGNAL")
+    plt.plot(AMZN["Close"], label="AMZN")
+    plt.plot(AMZN["EMA20"], label="EMA 20")
+    plt.plot(AMZN["EMA30"], label="EMA 30")
+    plt.plot(AMZN["EMASIGNAL"], label="EMA SIGNAL")
+    plt.plot(AMZN["MACD"], label="MACD")
+    plt.plot(AMZN["MACDSIGNAL"], label="MACD SIGNAL")
     plt.legend()
     plt.show()
 
