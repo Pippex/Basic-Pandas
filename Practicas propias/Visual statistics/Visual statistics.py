@@ -5,7 +5,7 @@ import numpy as np
 import pandas_datareader.data as web
 
 
-ticker = "AMZN"
+ticker = "KO"
 
 
 def get_chart(ticker, initial_date, finish_date):
@@ -30,7 +30,7 @@ def clasify_values(info, accuracy, volume):
     frequency = []
 
     for d in range(accuracy):
-        ranges.append(d)
+        ranges.append(int(min(info)+d*divide))
         frequency.append(0)
 
     for d in range(len(info)):
@@ -41,7 +41,7 @@ def clasify_values(info, accuracy, volume):
 
 
 def main():
-    chart = get_chart(ticker, dt.datetime(2017, 1, 1), dt.datetime(2021, 8, 30))
+    chart = get_chart(ticker, dt.datetime(2015, 1, 1), dt.datetime(2021, 8, 30))
     chart["price_relation_change"] = chart["Close"]
     chart["EMA20"] = get_EMA(chart["Close"], 20)
     chart["EMA30"] = get_EMA(chart["Close"], 30)
@@ -68,14 +68,11 @@ def main():
     chart["EMA_CHANGE_20"] = get_EMA(chart["price_relation_change"], 20)
     chart["standard_deviation_20"] = get_standard_deviation(chart["Close"], 20)
     chart["Volume Flow EMA100"] = get_EMA(chart["Volume Flow"], 100)
-
-    market_Statistics = clasify_values(chart["Close"], 100, chart["Volume"])
-    print(market_Statistics)
-
+    chart["Volume and Price"] = chart["Close"] * chart["Volume"]
 
 
     plots, ((price_change, EMA_CHANGE_20), (MACD, volume_flow_EMA), (standard_deviation, price),
-            (volume_flow, market_profile))\
+            (volume_flow, volume_profile))\
         = plt.subplots(4, 2)
     price_change.plot(chart[["price_relation_change", "NEUTRAL"]])
     EMA_CHANGE_20.plot(chart[["EMA_CHANGE_20", "NEUTRAL"]])
@@ -84,7 +81,7 @@ def main():
     volume_flow_EMA.plot(chart["Volume Flow EMA100"])
     price.plot(chart[["Close", "EMA20", "EMA30"]])
     volume_flow.plot(chart["Volume Flow"])
-    market_profile.plot(market_Statistics[0], market_Statistics[1])
+    volume_profile.hist(chart["Close"], 100)
     plt.show()
 
 
